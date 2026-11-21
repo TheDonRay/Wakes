@@ -190,6 +190,7 @@ export default function App() {
         onTogglePomodoro={togglePomodoro}
         onPause={pause}
         onStop={() => activeId && stop(activeId)}
+        onFinish={() => activeId && toggleDone(activeId)}
         onStart={start}
         onSkipBreak={() => setBreakState(null)}
       />

@@ -204,6 +204,7 @@ button:disabled {
 
 .now-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 8px;
 }
@@ -431,6 +432,10 @@ kbd {
   background: rgba(0, 0, 0, 0.08);
   color: var(--invert-text);
   border-color: rgba(0, 0, 0, 0.4);
+}
+
+.now-finish {
+  flex-basis: 100%;
 }
 
 .now :focus-visible {
@@ -734,7 +739,15 @@ input::placeholder {
   justify-content: flex-end;
   gap: 4px;
   flex: none;
-  min-width: 140px;
+  min-width: 226px;
+}
+
+.pill-finish {
+  height: 32px;
+  padding: 0 12px;
+  gap: 6px;
+  font-size: 12px;
+  margin: 0 2px;
 }
 
 .icon-btn {

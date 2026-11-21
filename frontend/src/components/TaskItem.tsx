@@ -146,6 +146,17 @@ export function TaskItem({
               </button>
             ) : null}
             {!done ? (
+              <button
+                type="button"
+                className="pill pill-finish"
+                onClick={onToggleDone}
+                aria-label={`Finish "${task.title}"`}
+                title="Finish task (stops the timer and logs the time)"
+              >
+                <Icon name="check" size={13} /> Finish
+              </button>
+            ) : null}
+            {!done ? (
               <button type="button" className="icon-btn ghost" onClick={beginEdit} aria-label={`Edit "${task.title}"`} title="Edit">
                 <Icon name="edit" size={14} />
               </button>

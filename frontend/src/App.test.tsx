@@ -59,6 +59,25 @@ describe("App", () => {
     expect(JSON.parse(localStorage.getItem("fd.activeTimer")!).taskId).toBe("b");
   });
 
+  it("Finish ends a running task early and keeps the time worked", async () => {
+    const user = userEvent.setup();
+    localStorage.setItem(
+      "fd.tasks",
+      JSON.stringify([{ id: "a", title: "A", status: "in_progress", estimateMin: 60, createdAt: new Date(Date.now() - 3_600_000).toISOString() }]),
+    );
+    localStorage.setItem("fd.activeTimer", JSON.stringify({ taskId: "a", startedAt: new Date(Date.now() - 10 * 60_000).toISOString() }));
+    render(<App />);
+
+    const row = within(openList()).getByText("A").closest("li")!;
+    await user.click(within(row).getByRole("button", { name: 'Finish "A"' }));
+
+    expect(within(screen.getByRole("list", { name: "Done tasks" })).getByText("A")).toBeInTheDocument();
+    expect(localStorage.getItem("fd.activeTimer")).toBeNull();
+    const sessions = JSON.parse(localStorage.getItem("fd.sessions")!);
+    expect(sessions[0].durationSec).toBeGreaterThanOrEqual(600);
+    expect(JSON.parse(localStorage.getItem("fd.tasks")!)[0].status).toBe("done");
+  });
+
   it("restores a running timer after a refresh and shows elapsed time", () => {
     const now = Date.now();
     localStorage.setItem(

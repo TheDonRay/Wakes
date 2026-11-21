@@ -14,6 +14,7 @@ type Props = {
   onTogglePomodoro: () => void;
   onPause: () => void;
   onStop: () => void;
+  onFinish: () => void;
   onStart: (id: string) => void;
   onSkipBreak: () => void;
 };
@@ -58,6 +59,14 @@ export function Sidebar(p: Props) {
               </button>
               <button type="button" className="pill pill-invert-ghost" onClick={p.onStop}>
                 <Icon name="stop" size={12} /> Stop
+              </button>
+              <button
+                type="button"
+                className="pill pill-invert-ghost now-finish"
+                onClick={p.onFinish}
+                aria-label={`Finish "${p.activeTask.title}"`}
+              >
+                <Icon name="check" size={13} /> Finish task
               </button>
             </div>
           </>
